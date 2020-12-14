@@ -50,8 +50,9 @@ type Toy struct {
 }
 
 type Company struct {
-	ID   int
-	Name string
+	ID    int
+	Name  string
+	Index int64 `gorm:"default:1"` // here I found it always reset its default value
 }
 
 type Language struct {

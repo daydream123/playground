@@ -1,18 +1,15 @@
 package main
 
 import (
-	"log"
-	"math/rand"
-	"os"
-	"path/filepath"
-	"time"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"path/filepath"
 )
 
 var DB *gorm.DB
@@ -82,7 +79,7 @@ func OpenTestConnection() (db *gorm.DB, err error) {
 }
 
 func RunMigrations() {
-	var err error
+	/*var err error
 	allModels := []interface{}{&User{}, &Account{}, &Pet{}, &Company{}, &Toy{}, &Language{}}
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(allModels), func(i, j int) { allModels[i], allModels[j] = allModels[j], allModels[i] })
@@ -104,5 +101,10 @@ func RunMigrations() {
 			log.Printf("Failed to create table for %#v\n", m)
 			os.Exit(1)
 		}
+	}*/
+
+	if err := DB.AutoMigrate(&Company{}); err != nil {
+		log.Printf("Failed to auto migrate, but got error %v\n", err)
+		os.Exit(1)
 	}
 }
